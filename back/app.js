@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 require('dotenv').config({ path: './config/.env' });
 const {checkUser, requireAuth} = require('./middlewares/auth');
+const path = require('path');
 
 require('./config/db');
 
@@ -25,6 +26,9 @@ app.use('/api/auth', userRoutes)
 
 const postRoutes = require('./routes/post');
 app.use('/api/posts', postRoutes);
+
+app.use('/images', express.static(path.join(__dirname, 'images')));
+
 
 
 
