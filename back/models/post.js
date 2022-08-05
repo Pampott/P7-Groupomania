@@ -11,11 +11,9 @@ const postSchema = mongoose.Schema({
       {
         commenterId: { type: String },
         text: { type: String },
-        timestamp: { type: Number },
       },
     ],
-  },
-  timestamps: {type: Boolean}
+  }
 });
 
 module.exports = mongoose.model("Post", postSchema);
