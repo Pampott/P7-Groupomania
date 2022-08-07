@@ -1,21 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import Header from "./components/Header";
 import SignUp from "./pages/Signup";
 import Login from "./pages/Login";
-import "./index.css";
-import Home from "./pages/Home";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navigation from "./components/Navigation";
+import './styles/index.css';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Router>
-      <Header />
+      <Navigation />
         <Routes>
-          <Route path="/" element={<Home />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
+          <Route path="*" element={<Login />} />
         </Routes>
     </Router>
   </React.StrictMode>

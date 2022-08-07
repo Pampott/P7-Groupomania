@@ -1,0 +1,47 @@
+//Colors
+$primary: #FD2D01;
+$secondary: #FFD7D7;
+$tertiary: #4E5166;
+
+//Fonts
+@font-face {
+    font-family: 'Lato';
+    src: url('../assets/fonts/Lato-Regular.ttf');
+}
+$font : 'Lato', sans-serif;
+
+//Reset, Init
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: $font;
+}
+
+//Mixins
+@mixin FlexCenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+//Navigation
+.navigation {
+    &__list{
+        @include FlexCenter;
+        flex-direction: column;
+    }
+}
+.logo {
+    width: 100%;
+}
+
+.links-wrapper{
+    width: 87%;
+    @include FlexCenter;
+}
+
+.link{
+    padding: 10px;
+    text-decoration: inherit;
+    color: inherit;
+}
