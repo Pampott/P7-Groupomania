@@ -1,5 +1,13 @@
-function SignUp() {
-    return <h1>Page d'inscription</h1>
-}
+import React from 'react';
+import Form from '../../components/Form';
 
-export default SignUp;
+const Signup = () => {
+    return (
+        <main>
+           <h1>S'inscrire</h1> 
+           <Form />
+        </main>
+    );
+};
+
+export default Signup;

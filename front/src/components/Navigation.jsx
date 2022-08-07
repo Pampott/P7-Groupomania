@@ -11,10 +11,10 @@ const Navigation = () => {
                 </NavLink>
                 <div className="links-wrapper">
                     <NavLink className="link" to="/signup">
-                        S'inscrire
+                        Inscription
                     </NavLink>
                     <NavLink className="link" to='/login'>
-                        Se connecter
+                        Connexion
                     </NavLink>
                 </div>
             </nav>
