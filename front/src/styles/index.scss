@@ -68,6 +68,7 @@ main {
   position: relative;
   @include FlexCenter;
   flex-direction: column;
+  justify-content: flex-start;
   min-height: 400px;
   &::before {
     position: absolute;
