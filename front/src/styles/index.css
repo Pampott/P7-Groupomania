@@ -1,11 +1,16 @@
 @font-face {
-  font-family: 'Lato';
+  font-family: "Lato";
   src: url("../assets/fonts/Lato-Regular.ttf");
 }
 
 @font-face {
-  font-family: 'Lato-bold';
+  font-family: "Lato-bold";
   src: url("../assets/fonts/Lato-Bold.ttf");
+}
+
+@font-face {
+  font-family: "Lato-Light";
+  src: url("../assets/fonts/Lato-Light.ttf");
 }
 
 * {
@@ -58,6 +63,7 @@
   padding: 10px;
   text-decoration: inherit;
   color: inherit;
+  font-size: 18px;
 }
 
 main {
@@ -75,6 +81,7 @@ main {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  min-height: 400px;
 }
 
 main::before {
@@ -87,13 +94,13 @@ main::before {
 }
 
 h1 {
-  font-size: 20px;
+  font-size: 25px;
   padding: 15px;
-  color: #FD2D01;
+  color: #fd2d01;
 }
 
 .form-wrapper {
-  width: 70%;
+  width: 90%;
   max-width: 400px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -105,7 +112,8 @@ h1 {
       -ms-flex-pack: center;
           justify-content: center;
   margin-top: 10px;
-  background: #FFD7D7;
+  border-radius: 10px;
+  background: #ffd7d7;
 }
 
 form {
@@ -118,8 +126,8 @@ form .champ {
 
 form label {
   position: absolute;
-  font-size: 15px;
-  top: 24px;
+  font-size: 17px;
+  top: 29px;
   left: 9px;
   -webkit-transform: scale(1) translate(0);
           transform: scale(1) translate(0);
@@ -127,7 +135,8 @@ form label {
 
 form input {
   outline: none;
-  width: 200px;
+  width: 240px;
+  height: 42px;
   border: 0px;
   padding: 7px;
   border-radius: 5px;
@@ -147,12 +156,56 @@ form input {
 }
 
 .btn-wrapper button {
-  color: #22232c;
+  color: #fff;
+  letter-spacing: 1px;
   font-family: "Lato-bold", sans-serif;
+  font-size: medium;
   padding: 10px 25px;
   border: 0;
-  border-radius: 20px;
+  border-radius: 15px;
   text-decoration: none;
-  background: #ff7171;
+  background: #fd2d01;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.btn-wrapper button:hover {
+  background: #4e5166;
+  color: #fff;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+footer {
+  background: #4e5166;
+  color: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+footer h3 {
+  padding: 20px;
+}
+
+footer ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  list-style: none;
+}
+
+footer ul li {
+  padding: 10px;
 }
 /*# sourceMappingURL=index.css.map */

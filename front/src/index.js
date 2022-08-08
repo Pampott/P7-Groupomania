@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import './styles/index.css';
+import Footer from "./components/Footer";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -16,6 +17,7 @@ root.render(
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<Login />} />
         </Routes>
+        <Footer />
     </Router>
   </React.StrictMode>
 );
