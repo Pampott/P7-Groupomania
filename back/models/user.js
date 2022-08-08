@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const roles = {
-    administrator: 2,
-    user: 1
+    administrator: process.env.ADMIN,
+    user: process.env.USER
 }
 const userSchema = mongoose.Schema({
     email: {type: String, required: true, unique: true},

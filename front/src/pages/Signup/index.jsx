@@ -1,12 +1,12 @@
 import React from 'react';
-import Form from '../../components/Form';
+import { Loader } from '../../styles/Atoms';
 
 const Signup = () => {
     return (
-        <main>
-           <h1>S'inscrire</h1> 
-           <Form />
-        </main>
+        <div>
+            <Loader />
+            <h1>Signup loading</h1>
+        </div>
     );
 };
 

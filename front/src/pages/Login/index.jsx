@@ -3,10 +3,7 @@ import Form from "../../components/Form";
 
 const Login = () => {
   return (
-    <main>
-      <h1>Se connecter</h1>
-      <Form />
-    </main>
+        <Form />
   );
 };
 
