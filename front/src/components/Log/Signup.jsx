@@ -6,6 +6,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
 
   const handleSignup = (e) => {
+    let signUpStatus = document.querySelector('.signup-status');
     e.preventDefault();
     axios({
         method: "post",
@@ -14,12 +15,12 @@ const Signup = () => {
         data: {
             email: email,
             password: password
-        },
+        },  
     })
-    .then((data) => {
-        console.log(data);
+    .then(() => {
+            signUpStatus.textContent = "Inscription réussie ! Essayez de vous connecter 😎"
     })
-    .catch((err) => console.log(err))
+    .catch((err) => signUpStatus.textContent = `Oups ! Une erreur est survenue : ${err}`)
   }
   return (
     <form action="" onSubmit={handleSignup} id="signup-form">
@@ -46,6 +47,7 @@ const Signup = () => {
       <div className="password error"></div>
       <br />
       <input type="submit" value="S'inscrire" />
+      <div className="signup-status"></div>
     </form>
   );
 };

@@ -9,24 +9,25 @@ const Login = () => {
     e.preventDefault();
     const emailError = document.querySelector('.email.error');
     const passwordError = document.querySelector('.password.error');
-    axios({
-        method: "post",
-        url: `${process.env.REACT_APP_API_URL}api/auth/login`,
-        withCredentials: false,
-        data: {
-            email: email,
-            password: password
-        },
-    })
-    .then((res) => {
-        if(res.data.errors) {
-            emailError.innerHTML = "Email non reconnu";
-            passwordError.innerHTML = "Erreur d'identification"
+
+    axios
+      .post(`${process.env.REACT_APP_API_URL}api/auth/login`, {
+        email: email,
+        password: password,
+      })
+      .then((res) => {
+        if(res.status === 200) {
+          window.location = "/posts"
         } else {
-            window.location = '/posts' ;
+          emailError.innerHTML = 'Identifiants incorrects' + res.status;
+          passwordError.innerHTML = 'Identifiants incorrects' + res.status
         }
-    })
-    .catch((err) => console.log(err))
+
+      })
+      .catch((err) => {
+        emailError.innerHTML = 'Identifiants incorrects : ' + err
+        passwordError.innerHTML = 'Identifiants incorrects : ' + err;
+      });
   };
   return (
     <form action="" onSubmit={handleLogin} id="login-form">
