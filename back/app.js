@@ -1,8 +1,6 @@
 const express = require('express');
-const cookieParser = require('cookie-parser');
-const cors = require('cors');
+const cookieParser = require('cookie-parser')
 require('dotenv').config({ path: './config/.env' });
-const {checkUser, requireAuth} = require('./middlewares/auth');
 const path = require('path');
 
 require('./config/db');
@@ -10,20 +8,25 @@ require('./config/db');
 const app = express();
 
 app.use(express.json());
-
-app.use(cookieParser());
-
+app.use(cookieParser(process.env.TOKEN))
 app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", 'http://localhost:3000'),
-    res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, XMLHttpRequest, Content-Type, Accept"),
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.setHeader(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, XMLHttpRequest, Content, Accept, Content-Type"
+    );
+    res.header('Access-Control-Allow-Credentials', true)
+    res.header('Authorization', 'Bearer' + ' ' + process.env.TOKEN)
+    res.setHeader(
+      "Access-Control-Allow-Methods",
+      "GET, POST, PUT, DELETE, PATCH, OPTIONS"
+    );
     next();
 });
 
 //jwt verification
-app.get('*', checkUser);
-app.get('/jwtid', requireAuth, (req, res) => {
-    res.status(200).send(res.locals.user._id)
-})
+const auth = require('./middlewares/auth');
+app.get('*', auth);
 
 const userRoutes = require('./routes/user');
 app.use('/api/auth', userRoutes)

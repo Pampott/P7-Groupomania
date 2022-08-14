@@ -1,7 +1,6 @@
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { removeListener } = require('../models/user');
 
 exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
@@ -28,8 +27,7 @@ exports.login = (req, res, next) => {
                 if(!valid) {
                     return res.status(401).json({ message: "Identifiants incorrects" })
                 } else {
-                    const token = jwt.sign({userId: user._id}, "TOKEN", {expiresIn: "24h"})
-                    res.cookie("jwt", token);
+                    const token = jwt.sign({userId: user._id}, process.env.TOKEN, {expiresIn: "24h"});
                     res.status(200).json({
                         userId: user._id,
                         token: token,
@@ -44,6 +42,6 @@ exports.login = (req, res, next) => {
 };
 
 exports.logout = (req, res, next) => {
-    res.cookie("jwt", "")
     res.status(200).json("OUT")
+    res.redirect('/auth')
 }
