@@ -25,7 +25,7 @@ exports.createPost = (req, res, next) => {
     posterId: req.body.posterId,
     message: req.body.message,
     imageUrl: req.body.imageUrl
-      ? `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
+      ? `${req.protocol}://${req.get("host")}/images/${req.file}`
       : "",
   });
 

@@ -1,14 +1,16 @@
 import React from 'react';
 import Log from '../../components/Log';
-import  Illustration from '../../assets/auth-img.png'
+import logo from '../../assets/logo.svg';
+import '../Auth/index.css';
 const Auth = () => {
     return (
-        <div className='auth-page'>
+        <div className='auth-wrapper'>
             <div className="log-container">
-                <Log />
-                <div className="img-container">
-                    <img src={Illustration} alt='authentification'/>
+                <div className="logo-wrapper">
+                <img src={logo} alt="Groupomania logo" className='logo' />
                 </div>
+                <Log />
+                
             </div> 
         </div>
     );

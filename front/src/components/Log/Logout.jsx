@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faArrowRightFromBracket} from '@fortawesome/free-solid-svg-icons';
 
 const Logout = () => {
     function redirect() {
@@ -11,10 +13,7 @@ const Logout = () => {
     return (
         <div className='logout-container' onClick={redirect}>
             <div className="logout-img">
-                <img src="" alt="" />
-            </div>
-            <div className="logout-text">
-                <p>Se déconnecter</p>
+                <FontAwesomeIcon icon={faArrowRightFromBracket} className='logout-icon' />
             </div>
         </div>
     );
