@@ -1,19 +1,25 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { StyledInput } from "../../styles/Atoms";
 
 const CreatePost = () => {
   const [message, setMessage] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-  const posterId = localStorage.getItem("posterId");
+  const [imageUrl] = useState("");
+  const posterId = localStorage.getItem("userId");
   const [isActive, setIsActive] = useState(false);
 
   function handleSubmit(e) {
     e.preventDefault();
+    const token = localStorage.getItem("token");
     axios
       .post(`${process.env.REACT_APP_API_URL}api/posts`, {
         posterId: posterId,
         message: message,
         imageUrl: imageUrl,
+      }, {
+        headers: {
+          "Authorization" : token
+        }
       })
       .then((res) => {
         console.log(res.data);
@@ -21,17 +27,18 @@ const CreatePost = () => {
       .catch((err) => console.log(err));
   }
 
-  class Button extends React.Component {
+  class ButtonToggle extends React.Component {
     render() {
       return (
         <input
           type="button"
           onClick={(e) => {
-            e.currentTarget.classList.toggle("active");
+            e.currentTarget.classList.toggle("active")
             e.currentTarget.classList.contains("active")
               ? setIsActive(true)
               : setIsActive(false)
-          }}
+          }
+        }
           value={this.props.value}
         />
       );
@@ -40,7 +47,7 @@ const CreatePost = () => {
 
   return (
     <>
-      <Button value={isActive ? "Fermer" : "Créer un post"} />
+      <ButtonToggle value={isActive ? "Fermer" : "Créer un post"}/>
       <form action="" onSubmit={handleSubmit} id="form">
         <div className="id-container">
           <p id="userId"></p>
@@ -57,15 +64,13 @@ const CreatePost = () => {
         <label htmlFor="image">Insérer une image</label>
         <input
           type="file"
-          src=""
+          src="back\images\image.jpg"
           alt=""
           name="image"
           id="image"
-          onChange={(e) => setImageUrl(e.target.src)}
         />
         <br />
-        <input type="submit" value="Soumettre" />
-        <input type="button" value="Fermer" />
+        <StyledInput type="submit" value="Soumettre"/>
       </form>
     </>
   );

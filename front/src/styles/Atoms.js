@@ -29,3 +29,12 @@ export const Loader = styled.div`
     position: absolute;
   }
 `
+export const StyledInput = styled.input`
+  padding: 12px 15px;
+  letter-spacing: 1px;
+  background: ${colors.primary};
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+`

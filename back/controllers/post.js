@@ -21,12 +21,13 @@ exports.getOnePost = (req, res, next) => {
 };
 
 exports.createPost = (req, res, next) => {
+  const postObject = req.body;
+  delete postObject._id;
   const post = new Post({
-    posterId: req.body.posterId,
-    message: req.body.message,
-    imageUrl: req.body.imageUrl
-      ? `${req.protocol}://${req.get("host")}/images/${req.file}`
-      : "",
+      ...postObject,
+      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file}`,
+      likes : 0,           
+      usersLiked : [],     
   });
 
   post

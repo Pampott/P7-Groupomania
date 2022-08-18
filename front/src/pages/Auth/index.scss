@@ -9,15 +9,18 @@ $tertiary: #4E5166;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        background: lighten($tertiary, 30);
     }
     .log-container {
+        background: #fff;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         width: 90%;
+        max-width: 400px;
         border-radius: 10px;
-        box-shadow: 1px 10px 18px -3px lighten($tertiary, 30);
+        box-shadow: 0px 3px 30px 3px lighten($tertiary, 5);
     } 
     .connection-form {
         width: 100%;
@@ -77,6 +80,7 @@ img {
             border-radius: 15px;
             &:focus {
                 padding-left: .7em;
+                outline: none;
                 + label {
                     top: -1.2em;
                     left: 0;

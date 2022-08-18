@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+
 const postSchema = mongoose.Schema({
   posterId: { type: String, required: true },
   message: { type: String },
@@ -12,7 +13,7 @@ const postSchema = mongoose.Schema({
         commenterId: { type: String },
         text: { type: String },
       },
-    ],
+    ], default: []
   }
 });
 

@@ -1,11 +1,11 @@
 import React from "react";
 import logo from "../../assets/logo.svg";
 import Logout from "../../components/Log/Logout";
-import CreatePost from "../../components/Post/CreatePost";
-import GetPost from "../../components/Post/GetPost";
 import styled from "styled-components";
 import { colors } from "../../styles/colors";
 import '../Posts/index.css';
+import CreatePost from "../../components/Post/CreatePost";
+import GetPost from "../../components/Post/GetPost"
 
 const StyledHeader = styled.header`
     display: flex;
@@ -15,7 +15,7 @@ const StyledHeader = styled.header`
     height: 60px;
 ` 
 
-const Posts = () => {
+const PostsPage = () => {
   return (
     <div className="post-page">
       <StyledHeader>
@@ -32,4 +32,4 @@ const Posts = () => {
   );
 };
 
-export default Posts;
+export default PostsPage;
