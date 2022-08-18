@@ -1,12 +1,12 @@
 import React from "react";
 import axios from "axios";
-import heart from '../../assets/heart.png';
+import heart from "../../assets/heart.png";
 import pencil from "../../assets/pencil.png";
-import imageDefault from "../../assets/img-default.jpg"
+import imageDefault from "../../assets/img-default.jpg";
 import "../../pages/Posts/style/index.css";
 
 const GetPost = () => {
-    //Récupération des données de l'API avec axios
+  //Récupération des données de l'API avec axios
   axios
     .get(`${process.env.REACT_APP_API_URL}api/posts`)
     .then((res) => {
@@ -29,17 +29,17 @@ const GetPost = () => {
 
           <div class="comments-number">
             <img class="pencil icon" src=${pencil} alt="icone pour les commentaires" />
-            <p id="numberOfComments"></p>
-            <div class="btn-comments">
-              <input type="button" value="Commenter" />
-            </div>
+            <p id="numberOfComments">0</p>
           </div>
+        </div>
+        <div class="btn-comments">
+              <input type="button" value="Ecrire..." />
         </div>
         <div class="comments-container">commentaires dynamiques</div>
       </div>
         `;
         //Si pas de message, efface la div message
-        document.getElementById("data-message").textContent = post.message;
+        document.getElementById("data-message").innerText += post.message;
 
         //Si pas d'image, efface la div image
         //document.getElementById("data-image").textContent += post.imageUrl;

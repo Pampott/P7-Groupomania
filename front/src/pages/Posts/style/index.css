@@ -100,16 +100,102 @@
 }
 
 .post-container {
-  margin: 5px 10px;
-  background: #9b9eb2;
+  margin: 2em 10px;
   width: 90%;
   max-width: 355px;
+  height: 400px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 0px 10px 0px #7e829c;
+          box-shadow: 0px 0px 10px 0px #7e829c;
+}
+
+.img-container {
+  height: 85%;
+}
+
+#data-image {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  width: 100%;
+  margin: 0;
+  height: 100%;
 }
 
 .icon {
-  height: 15px;
-  width: 15px;
+  -o-object-fit: fill;
+     object-fit: fill;
+}
+
+.pencil.icon {
+  height: 20px;
+  width: 20px;
   margin: 0;
+}
+
+.heart.icon {
+  height: 21px;
+  width: 21px;
+  margin: 0;
+}
+
+.action-container {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.action-container .likes-number {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.action-container .likes-number p {
+  font-size: 10px;
+}
+
+.action-container .comments-number {
+  position: absolute;
+  right: 50px;
+  top: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.action-container .comments-number p {
+  font-size: 10px;
 }
 
 .logo-container {
