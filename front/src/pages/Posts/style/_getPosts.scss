@@ -1,0 +1,19 @@
+#content-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+.post-container {
+    margin: 5px 10px;
+    background: lighten($tertiary, 30);
+    width: 90%;
+    max-width: 355px;
+}
+
+.icon {
+    height: 15px;
+    width: 15px;
+    margin: 0;
+}

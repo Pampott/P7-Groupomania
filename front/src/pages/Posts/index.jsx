@@ -3,7 +3,7 @@ import logo from "../../assets/logo.svg";
 import Logout from "../../components/Log/Logout";
 import styled from "styled-components";
 import { colors } from "../../styles/colors";
-import '../Posts/index.css';
+import './style/index.css';
 import CreatePost from "../../components/Post/CreatePost";
 import GetPost from "../../components/Post/GetPost"
 
@@ -11,8 +11,11 @@ const StyledHeader = styled.header`
     display: flex;
     align-items: center;
     justify-content: space-around;
-    box-shadow: 1px -11px 11px 6px ${colors.tertiary};
+    box-shadow: 1px -11px 11px 6px ${colors.primary};
     height: 60px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    margin-bottom: 2em;
 ` 
 
 const PostsPage = () => {
@@ -25,8 +28,8 @@ const PostsPage = () => {
         <Logout />
       </StyledHeader>
       <main>
-        <CreatePost />
-        <GetPost />
+        <CreatePost className="createPost"/>
+        <GetPost className="getPosts"/>
       </main>
     </div>
   );

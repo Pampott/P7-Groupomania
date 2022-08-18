@@ -1,0 +1,62 @@
+.createPost {
+    grid-area: "CreatePost";
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .getPosts {
+    grid-area: "GetPosts";
+  }
+  .toggle-btn {
+    background: none;
+    border: none;
+    color: $primary;
+    padding: 10px 12px;
+    &.active {
+      border: 2px solid $primary;
+    }
+  }
+  
+  #form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    max-width: 500px;
+    padding: 10px;
+    background: $secondary;
+    border-radius: 10px;
+    h1 {
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+    label {
+      font-size: 14px;
+      font-weight: 700;
+      font-style: italic;
+    }
+    input {
+      width: 150px;
+      outline: none;
+      border: none;
+      &:first-of-type {
+        width: 200px;
+        height: 50px;
+        border-radius: 10px;
+        padding: 5px;
+      }
+      &.form-btn {
+        padding: 10px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        border-radius: 5px;
+        font-size: 12px;
+        width: 80px;
+        font-weight: 700;
+        color: #fff;
+        background: $primary;
+      }
+    }
+  }

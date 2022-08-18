@@ -1,0 +1,146 @@
+.createPost {
+  grid-area: "CreatePost";
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.getPosts {
+  grid-area: "GetPosts";
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  color: #fd2d01;
+  padding: 10px 12px;
+}
+
+.toggle-btn.active {
+  border: 2px solid #fd2d01;
+}
+
+#form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 90%;
+  max-width: 500px;
+  padding: 10px;
+  background: #ffd7d7;
+  border-radius: 10px;
+}
+
+#form h1 {
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+#form label {
+  font-size: 14px;
+  font-weight: 700;
+  font-style: italic;
+}
+
+#form input {
+  width: 150px;
+  outline: none;
+  border: none;
+}
+
+#form input:first-of-type {
+  width: 200px;
+  height: 50px;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+#form input.form-btn {
+  padding: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-radius: 5px;
+  font-size: 12px;
+  width: 80px;
+  font-weight: 700;
+  color: #fff;
+  background: #fd2d01;
+}
+
+#content-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 20px;
+}
+
+.post-container {
+  margin: 5px 10px;
+  background: #9b9eb2;
+  width: 90%;
+  max-width: 355px;
+}
+
+.icon {
+  height: 15px;
+  width: 15px;
+  margin: 0;
+}
+
+.logo-container {
+  width: 70%;
+}
+
+#logo {
+  height: 31px;
+  margin: 0;
+}
+
+.logout-icon {
+  font-size: 20px;
+  color: #6f7491;
+}
+
+.post-page {
+  display: block;
+}
+
+main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+}
+/*# sourceMappingURL=index.css.map */

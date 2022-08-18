@@ -30,11 +30,13 @@ export const Loader = styled.div`
   }
 `
 export const StyledInput = styled.input`
-  padding: 12px 15px;
+  padding: 8px 10px;
   letter-spacing: 1px;
-  background: ${colors.primary};
-  color: #fff;
-  border: none;
+  background: #fff;
+  color: ${colors.tertiary};
+  border: 1px solid ${colors.tertiary};
   border-radius: 10px;
   font-weight: 700;
+  text-transform: uppercase;
+  font-size: 12px;
 `
