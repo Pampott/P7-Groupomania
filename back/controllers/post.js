@@ -22,14 +22,13 @@ exports.getOnePost = (req, res, next) => {
 
 exports.createPost = (req, res, next) => {
   const postObject = req.body;
-  delete postObject._id;
   const post = new Post({
       ...postObject,
-      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file}`,
+      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
       likes : 0,           
-      usersLiked : [],     
+      usersLiked : [], 
   });
-
+  console.log(req.file);
   post
     .save()
     .then(() => res.status(201).json(post))

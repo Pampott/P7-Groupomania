@@ -3,9 +3,7 @@ import logo from "../../assets/logo.svg";
 import Logout from "../../components/Log/Logout";
 import styled from "styled-components";
 import { colors } from "../../styles/colors";
-import './style/index.css';
 import CreatePost from "../../components/Post/CreatePost";
-import GetPost from "../../components/Post/GetPost"
 
 const StyledHeader = styled.header`
     display: flex;
@@ -29,7 +27,6 @@ const PostsPage = () => {
       </StyledHeader>
       <main>
         <CreatePost className="createPost"/>
-        <GetPost className="getPosts"/>
       </main>
     </div>
   );
