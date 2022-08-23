@@ -4,6 +4,8 @@ import React, { useState } from "react";
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [fName, setFName] = useState("");
+  const [lName, setLName] = useState("");
 
   const handleSignup = (e) => {
     let signUpStatus = document.querySelector(".signup-status");
@@ -13,6 +15,8 @@ const Signup = () => {
       url: `${process.env.REACT_APP_API_URL}api/auth/signup`,
       withCredentials: false,
       data: {
+        firstName: fName,
+        lastName: lName,
         email: email,
         password: password,
       },
@@ -29,7 +33,26 @@ const Signup = () => {
   return (
     <form action="" onSubmit={handleSignup} id="signup-form" className="form">
       <div className="input-wrapper">
-        
+        <label htmlFor="firstName">Prénom</label>
+        <input
+          type="text"
+          name="firstName"
+          id="firstName"
+          onChange={(e) => setFName(e.target.value)}
+          value={fName}
+        />
+      </div>
+      <div className="input-wrapper">
+        <label htmlFor="lastName">Nom</label>
+        <input
+          type="text"
+          name="lastName"
+          id="lastName"
+          onChange={(e) => setLName(e.target.value)}
+          value={lName}
+        />
+      </div>
+      <div className="input-wrapper">
         <input
           type="text"
           name="email"
@@ -42,7 +65,6 @@ const Signup = () => {
         <br />
       </div>
       <div className="input-wrapper">
-
         <input
           type="password"
           name="password"

@@ -4,6 +4,7 @@ import Logout from "../../components/Log/Logout";
 import styled from "styled-components";
 import { colors } from "../../styles/colors";
 import CreatePost from "../../components/Post/CreatePost";
+import GetPosts from "../../components/Post/GetPosts";
 
 const StyledHeader = styled.header`
     display: flex;
@@ -27,6 +28,7 @@ const PostsPage = () => {
       </StyledHeader>
       <main>
         <CreatePost className="createPost"/>
+        <GetPosts />
       </main>
     </div>
   );

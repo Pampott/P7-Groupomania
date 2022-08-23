@@ -5,6 +5,8 @@ const roles = {
     user: process.env.USER
 }
 const userSchema = mongoose.Schema({
+    firstName: {type: String},
+    lastName: {type: String},
     email: {type: String, required: true, unique: true},
     password: {type: String, required: true},
     role: {type: Number, required: true, default: roles.user}

@@ -24,11 +24,11 @@ exports.createPost = (req, res, next) => {
   const postObject = req.body;
   const post = new Post({
       ...postObject,
-      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+      imageUrl:  req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : "",
       likes : 0,           
       usersLiked : [], 
   });
-  console.log(req.file);
+
   post
     .save()
     .then(() => res.status(201).json(post))
