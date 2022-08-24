@@ -59,6 +59,7 @@ const Signup = () => {
           id="email"
           onChange={(e) => setEmail(e.target.value)}
           value={email}
+          required={true}
         />
         <label htmlFor="email">Email</label>
         <div className="email error"></div>
@@ -71,6 +72,7 @@ const Signup = () => {
           id="password"
           onChange={(e) => setPassword(e.target.value)}
           value={password}
+          required={true}
         />
         <label htmlFor="password">Mot de passe</label>
         <div className="password error"></div>

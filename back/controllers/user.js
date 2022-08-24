@@ -37,6 +37,8 @@ exports.login = (req, res, next) => {
             });
             res.setHeader("Authorization", "Bearer" + token);
             return res.status(200).json({
+              firstName: user.firstName,
+              lastName: user.lastName,
               userId: user._id,
               token: token,
             });

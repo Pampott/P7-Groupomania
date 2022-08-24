@@ -3,20 +3,20 @@ import React, { useState } from "react";
 
 const CreatePost = () => {
   const [file, setFile] = useState("");
-  const [value, setValue] = useState("Nouveau post");
-  const posterId = localStorage.getItem("userId");
+  const user = localStorage.getItem("user");
+  let userObject = JSON.parse(user)
+  
+  
   const statusMessage = document.querySelector(".statusMessage");
 
-  function handleClick(e) {
-    //const form = document.getElementById("form");
-     value === "Nouveau post"  ? setValue("Fermer") : setValue("Nouveau post");
-  
-  }
   function handleSubmit(e) {
     e.preventDefault();
     const token = localStorage.getItem("token");
     const formData = new FormData(document.getElementById("form"));
-    formData.set("posterId", posterId);
+    formData.set("posterId", userObject.id);
+    formData.set("firstName", userObject.firstName);
+    formData.set("lastName", userObject.lastName);
+    //formData.set("timestamp", new Date.now())
     formData.append("image", file);
     axios
       .post(`${process.env.REACT_APP_API_URL}api/posts`, formData, {
@@ -26,20 +26,18 @@ const CreatePost = () => {
         },
       })
       .then(() => {
-        statusMessage.textContent += "Post créé !";
+        setTimeout(() => {
+          statusMessage.innerHTML = "Post créé !"
+        }, 800);
+        setTimeout(() => {window.location.reload();}, 1000)
       })
       .catch((err) => {
-        statusMessage.textContent += `Une erreur est survenue : ${err}`;
+        statusMessage.innerHTML = `Une erreur est survenue : ${err}`;
       });
   }
 
   return (
     <>
-      <input
-        type="button"
-        value={value}
-        onClick={(e) => handleClick(e)}
-      ></input>
       <form
         action=""
         id="form"

@@ -67,7 +67,7 @@ img {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        margin-bottom: 10px;
+        margin: 15px;
         input, label {
             transition:  all .3s;
         }
@@ -81,20 +81,15 @@ img {
             &:focus {
                 padding-left: .7em;
                 outline: none;
-                + label {
-                    top: -1.2em;
-                    left: 0;
-                    transform: scale(0.9);
-                }
+
             }
         }
         label {
             position: absolute;
             color: $tertiary;
-            top: .6em;
+            top: -1.4em;
             left: .5em;
             line-height: 1;
-            transform: scale(1);
         }
     }
 }

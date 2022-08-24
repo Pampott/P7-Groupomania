@@ -101,7 +101,7 @@ exports.commentPost = (req, res, next) => {
     {
       $push: {
         comments: {
-          commenterId: req.body.commenterId,
+          commenterName: req.body.commenterName,
           text: req.body.text,
           timestamp: new Date().getTime(),
         },

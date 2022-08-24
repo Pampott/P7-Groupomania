@@ -19,7 +19,6 @@ const Login = () => {
         if (res.status === 200) {
           delete res.config.data;
           localStorage.setItem("token", res.data.token);
-          localStorage.setItem("userId", res.data.userId)
           window.location = "/posts";
         } else {
           emailError.innerHTML = "Identifiants incorrects" + res.status;
