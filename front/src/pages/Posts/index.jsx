@@ -1,21 +1,10 @@
 import React from "react";
 import logo from "../../assets/logo.svg";
 import Logout from "../../components/Log/Logout";
-import styled from "styled-components";
-import { colors } from "../../styles/colors";
+import { StyledHeader } from "../../styles/Atoms";
 import CreatePost from "../../components/Post/CreatePost";
 import GetPosts from "../../components/Post/GetPosts";
 
-const StyledHeader = styled.header`
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    box-shadow: 1px -11px 11px 6px ${colors.primary};
-    height: 60px;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    margin-bottom: 2em;
-` 
 
 const PostsPage = () => {
   return (

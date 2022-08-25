@@ -6,8 +6,14 @@ import {faArrowRightFromBracket} from '@fortawesome/free-solid-svg-icons';
 const Logout = () => {
     function redirect() {
         
-        axios.get(`${process.env.REACT_APP_API_URL}api/auth/logout`)
-        .then(window.location = '/auth')
+        axios.get(`${process.env.REACT_APP_API_URL}api/auth/logout`, {
+            headers : {
+                Authorization: localStorage.getItem("token")
+            }
+        })
+        .then(() => {
+            localStorage.clear();
+            window.location = '/auth'})
         .catch(err => alert('Une erreur est survenue : ' + err))
     }
     return (

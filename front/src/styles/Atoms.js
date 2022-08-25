@@ -39,4 +39,15 @@ export const StyledInput = styled.input`
   font-weight: 700;
   text-transform: uppercase;
   font-size: 12px;
-`
+`;
+
+export const StyledHeader = styled.header`
+display: flex;
+align-items: center;
+justify-content: space-around;
+box-shadow: 1px -11px 11px 6px ${colors.primary};
+height: 60px;
+border-bottom-left-radius: 20px;
+border-bottom-right-radius: 20px;
+margin-bottom: 2em;
+` 

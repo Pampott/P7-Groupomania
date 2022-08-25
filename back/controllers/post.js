@@ -14,12 +14,6 @@ exports.getPosts = (req, res, next) => {
   });
 };
 
-exports.getOnePost = (req, res, next) => {
-  Post.findOne({ _id: req.params.id })
-    .then((post) => res.status(200).json(post))
-    .catch((error) => res.status(400).json({ error }));
-};
-
 exports.createPost = (req, res, next) => {
   const postObject = req.body;
   const post = new Post({
@@ -76,19 +70,24 @@ exports.likePost = (req, res, next) => {
     return res.status(400).json("ID inconnu: " + req.params.id);
   }
 
-  Post.findOne(req.params.id).then((post) => {
+  Post.findById(req.params.id).then((post) => {
     if (!post)
       return res.status(404).json({ message: "Ce post n'existe pas." });
+    else {
+      if (post.usersLiked.includes(req.body.userId)) {
+        post.usersLiked.shift(req.body.userId);
+        post.likes--;
+        console.log(post);
+      } else {
+        post.usersLiked.push(req.body.userId);
+        post.likes++;
+        console.log(post);
+        return res.status(200).json({message: "post liké !"})
+      }
+    }
   });
 
-  if (req.body.like === 1) {
-    return res
-      .status(500)
-      .json({ message: "Post déjà liké par cet utilisateur" });
-  } else {
-    Post.usersLiked.push(req.body.userId);
-    Post.likes++;
-  }
+  
 };
 
 exports.commentPost = (req, res, next) => {
