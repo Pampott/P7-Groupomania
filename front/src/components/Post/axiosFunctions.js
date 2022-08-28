@@ -14,10 +14,10 @@ export function fetchPosts(token) {
   });
 }
 
-export function postLike(id, user, token) {
+export function like(id, user, token) {
   return new Promise((resolve) => {
     axios
-      .patch(
+      .post(
         `${process.env.REACT_APP_API_URL}api/posts/${id}/like`,
         { userId: user },
         {
@@ -76,19 +76,6 @@ export function comment(id, data, token) {
   });
 }
 
-export function editComment(id, data, token) {
-  return new Promise((resolve) => {
-    axios
-      .patch(`{process.env.REACT_APP_API_URL}api/posts/${id}/comment`, data, {
-        headers: {
-          Authorization: token,
-        },
-      })
-      .then((res) => res.data)
-      .then(resolve)
-      .catch(console.error);
-  });
-}
 
 export function deleteComment(id, token) {
   return new Promise((resolve) => {

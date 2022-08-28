@@ -1,16 +1,19 @@
 import React /*{ useEffect, useState }*/ from 'react';
 
-const Comments = () => {
-   /* const [comments, setComments] = useState([]);
+const Comments = (post) => {
 
-    useEffect(() => {
-        if(post.comments) {
-            setComments(post.comments)
-        }
-    }, [post.comments])*/
     return (
         <div>
-            Comments
+            {post.post.comments?.map(comment => {
+                return <div key={post.post._id + comment.text}>
+                    <p>{comment.commenterName}</p>
+                    <p>{comment.text}</p>
+                    <p>{comment.date}</p>
+                    <div className="actions">
+                        <button>Supprimer</button>
+                    </div>
+                </div>
+            })}
         </div>
     );
 };

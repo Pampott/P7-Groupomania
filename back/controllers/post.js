@@ -73,12 +73,12 @@ exports.modifyPost = async (req, res) => {
 };
 
 exports.deletePost = (req, res, next) => {
-  if (posterId !== req.auth.userId) {
+  if (Post.posterId !== req.auth.userId) {
     return res
       .status(401)
       .json({ error: new Error("Utilisateur non-autorisé") });
   }
-  if (posterId === req.auth.userId || req.auth.role === 2) {
+  if (Post.posterId === req.auth.userId || req.auth.role === 2) {
     Post.findByIdAndRemove(req.params.id, (err) => {
       if (!err) res.status(200).json({ message: "Post supprimé !" });
       else console.log(err);
@@ -101,17 +101,20 @@ exports.likePost = async (req, res) => {
         .json({ message: `Aucun poste existant avec cette id: ${id}` });
     }
 
-    const post = await PostModel.findById(id);
+    const post = await Post.findById(id);
 
-    const index = post.likes.findIndex((id) => id === String(req.userId));
+    const index = post.usersLiked.findIndex((id) => id === String(req.userId));
 
     if (index === -1) {
-      post.likes.push(req.userId);
+      post.usersLiked.push(req.userId);
+      post.likes++;
+
     } else {
-      post.likes = post.likes.filter((id) => id !== String(req.userId));
+      post.usersLiked.splice(req.userId);
+      post.likes--
     }
 
-    const updatedPost = await PostModel.findByIdAndUpdate(id, post, {
+    const updatedPost = await Post.findByIdAndUpdate(id, post, {
       new: true,
     });
 
@@ -141,30 +144,6 @@ exports.commentPost = (req, res, next) => {
     (err, docs) => {
       if (!err) return res.status(201).json(docs);
       else return res.status(400).json(err);
-    }
-  );
-};
-
-exports.editComment = (req, res, next) => {
-  if (!ObjectId.isValid(req.params.id)) {
-    return res.status(400).json("ID inconnu: " + req.params.id);
-  }
-
-  Post.findByIdAndUpdate(
-    req.params.id,
-    {
-      $set: {
-        comments: {
-          text: req.body.text,
-          timestamp: new Date().getTime(),
-        },
-      },
-    },
-    { new: true },
-    (err, res) => {
-      if (!err)
-        return res.status(200).json({ message: "Commentaire modifié !" });
-      else return res.status(401).json(err);
     }
   );
 };
