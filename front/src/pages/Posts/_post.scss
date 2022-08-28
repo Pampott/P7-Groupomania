@@ -1,0 +1,11 @@
+#postsContainer {
+    @include FlexColumnCenter;
+}
+
+.card-container{
+    @include FlexColumnCenter;
+    margin: 10px;
+    padding: 10px;
+    border: 2px solid lighten($primary, 30);
+    border-radius: 10px;
+}

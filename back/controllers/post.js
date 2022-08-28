@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const fs = require('fs');
+const fs = require("fs");
 const Post = require("../models/post");
 const user = require("../models/user");
 const ObjectId = mongoose.Types.ObjectId;
@@ -14,13 +14,25 @@ exports.getPosts = (req, res, next) => {
   });
 };
 
+exports.getPost = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const post = await PostModel.findById(id);
+    res.status(200).json(post);
+  } catch (error) {
+    res.status(404).json({ message: "Une erreur est survenue" });
+  }
+};
 exports.createPost = (req, res, next) => {
   const postObject = req.body;
   const post = new Post({
-      ...postObject,
-      imageUrl:  req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : "",
-      likes : 0,           
-      usersLiked : [], 
+    ...postObject,
+    imageUrl: req.file
+      ? `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
+      : "",
+    likes: 0,
+    usersLiked: [],
+    createdAt: new Date().toISOString(),
   });
 
   post
@@ -29,65 +41,84 @@ exports.createPost = (req, res, next) => {
     .catch((err) => console.log(err));
 };
 
-exports.modifyPost = (req, res, next) => {
-  if (!ObjectId.isValid(req.params.id)) {
-    return res.status(400).json("ID inconnu: " + req.params.id);
+exports.modifyPost = async (req, res) => {
+  const { id } = req.params;
+  const message = req.body.message;
+  const posterId = req.body.posterId;
+  let image = req.file
+  ? `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
+  : "";
+  if (posterId !== req.auth.userId) {
+    return res
+      .status(401)
+      .json({ error: new Error("Utilisateur non-autorisé") });
   }
-
-  if (
-    ObjectId.isValid(req.params.id) ||
-    user.role === user.roles.administrator
-  ) {
-    const updatedRecord = {
-      message: req.body.message,
-    };
-    Post.findByIdAndUpdate(
-      req.params.id,
-      { $set: updatedRecord },
-      { new: true },
-      (err, docs) => {
-        if (!err) res.send(docs);
-        else console.log(err);
+  if (posterId === req.auth.userId || req.auth.role === 2) {
+    try {
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ message: "Ce post n'existe pas." });
       }
-    );
+      const updatedPost = {
+        posterId,
+        message,
+        image,
+        _id: id,
+      };
+      await Post.findByIdAndUpdate(id, updatedPost, { new: true });
+      res.json(updatedPost);
+    } catch (error) {
+      res.status(500).json({ error });
+    }
   }
 };
 
 exports.deletePost = (req, res, next) => {
-  if (!ObjectId.isValid(req.params.id)) {
-    return res.status(400).json("ID inconnu: " + req.params.id);
+  if (posterId !== req.auth.userId) {
+    return res
+      .status(401)
+      .json({ error: new Error("Utilisateur non-autorisé") });
   }
-
-  if (ObjectId.isValid(req.params.id) || user.role === user.roles.administrator)
-    Post.findByIdAndRemove(req.params.id, (err, docs) => {
+  if (posterId === req.auth.userId || req.auth.role === 2) {
+    Post.findByIdAndRemove(req.params.id, (err) => {
       if (!err) res.status(200).json({ message: "Post supprimé !" });
       else console.log(err);
     });
+  }
+   
 };
 
-exports.likePost = (req, res, next) => {
-  if (!ObjectId.isValid(req.params.id)) {
-    return res.status(400).json("ID inconnu: " + req.params.id);
-  }
+exports.likePost = async (req, res) => {
+  const { id } = req.params;
 
-  Post.findById(req.params.id).then((post) => {
-    if (!post)
-      return res.status(404).json({ message: "Ce post n'existe pas." });
-    else {
-      if (post.usersLiked.includes(req.body.userId)) {
-        post.usersLiked.shift(req.body.userId);
-        post.likes--;
-        console.log(post);
-      } else {
-        post.usersLiked.push(req.body.userId);
-        post.likes++;
-        console.log(post);
-        return res.status(200).json({message: "post liké !"})
-      }
+  try {
+    if (!req.userId) {
+      return res.json({ message: "Utilisateur non identifié" });
     }
-  });
 
-  
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res
+        .status(404)
+        .json({ message: `Aucun poste existant avec cette id: ${id}` });
+    }
+
+    const post = await PostModel.findById(id);
+
+    const index = post.likes.findIndex((id) => id === String(req.userId));
+
+    if (index === -1) {
+      post.likes.push(req.userId);
+    } else {
+      post.likes = post.likes.filter((id) => id !== String(req.userId));
+    }
+
+    const updatedPost = await PostModel.findByIdAndUpdate(id, post, {
+      new: true,
+    });
+
+    res.status(200).json(updatedPost);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
 };
 
 exports.commentPost = (req, res, next) => {
@@ -102,7 +133,7 @@ exports.commentPost = (req, res, next) => {
         comments: {
           commenterName: req.body.commenterName,
           text: req.body.text,
-          timestamp: new Date().getTime(),
+          date: new Date().getTime(),
         },
       },
     },

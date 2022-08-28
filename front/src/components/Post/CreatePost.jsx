@@ -1,12 +1,13 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { StyledInput } from "../../styles/Atoms";
 
 const CreatePost = () => {
   const [file, setFile] = useState("");
   const user = localStorage.getItem("user");
   let userObject = JSON.parse(user)
-  
-  
+
+
   const statusMessage = document.querySelector(".statusMessage");
 
   function handleSubmit(e) {
@@ -29,7 +30,7 @@ const CreatePost = () => {
         setTimeout(() => {
           statusMessage.innerHTML = "Post créé !"
         }, 800);
-        setTimeout(() => {window.location.reload();}, 1000)
+        setTimeout(() => { window.location.reload(); }, 1000)
       })
       .catch((err) => {
         statusMessage.innerHTML = `Une erreur est survenue : ${err}`;
@@ -44,20 +45,24 @@ const CreatePost = () => {
         onSubmit={handleSubmit}
         encType="multipart/form-data"
       >
-        <label htmlFor="message">Message :</label>
-        <input type="text" name="message" id="message" />
+        <div className="inputs-wrapper">
+          <label htmlFor="message" className="label">Message :</label>
+          <input type="text" name="message" id="message" />
+          <br />
+          <label htmlFor="image" className="label">Insérer une image :
+            <input
+              type="file"
+              src=""
+              alt=""
+              name="image"
+              id="image"
+              onChange={(e) => setFile(e.target.files[0].name)}
+            />
+          </label>
+
+        </div>
         <br />
-        <label htmlFor="image">Insérer une image :</label>
-        <input
-          type="file"
-          src=""
-          alt=""
-          name="image"
-          id="image"
-          onChange={(e) => setFile(e.target.files[0].name)}
-        />
-        <br />
-        <input className="form-btn" type="submit" value="publier" />
+        <StyledInput className="form-btn" type="submit" value="publier" />
         <div className="statusMessage"></div>
       </form>
     </>

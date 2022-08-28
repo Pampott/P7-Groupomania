@@ -4,6 +4,7 @@ import Logout from "../../components/Log/Logout";
 import { StyledHeader } from "../../styles/Atoms";
 import CreatePost from "../../components/Post/CreatePost";
 import GetPosts from "../../components/Post/GetPosts";
+import './index.css';
 
 
 const PostsPage = () => {

@@ -12,11 +12,11 @@ router.put('/:id', auth, multer, postCtrl.modifyPost);
 
 router.delete('/:id', auth, postCtrl.deletePost);
 
-router.post('/:id/like', postCtrl.likePost);
+router.patch('/:id/like', postCtrl.likePost);
 
 router.post('/:id/comment', postCtrl.commentPost);
 
-router.put('/:id/comment', auth, postCtrl.editComment);
+router.patch('/:id/comment', auth, postCtrl.editComment);
 
 router.delete('/:id/comment', auth, postCtrl.deleteComment);
 

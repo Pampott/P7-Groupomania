@@ -50,6 +50,5 @@ exports.login = (req, res, next) => {
 };
 
 exports.logout = (req, res, next) => {
-  res.status(200).json("OUT");
-  res.redirect("/auth");
+  res.status(200).json("OUT").redirect("auth")
 };
