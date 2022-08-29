@@ -51,7 +51,7 @@ ul {
   margin: 20px 0;
 }
 
-ul li {
+ul .auth-btn {
   list-style: none;
   padding: 10px 15px;
   -webkit-transition: all 0.3s;

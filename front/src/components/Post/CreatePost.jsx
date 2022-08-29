@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { StyledInput } from "../../styles/Atoms";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faImage } from "@fortawesome/free-solid-svg-icons"
 const CreatePost = () => {
   const [file, setFile] = useState("");
   const user = localStorage.getItem("user");
@@ -46,10 +47,9 @@ const CreatePost = () => {
         encType="multipart/form-data"
       >
         <div className="inputs-wrapper">
-          <label htmlFor="message" className="label">Message :</label>
+          <label htmlFor="message" className="label-message">Message :</label>
           <input type="text" name="message" id="message" />
-          <br />
-          <label htmlFor="image" className="label">Insérer une image :
+          <label htmlFor="image" className="label-image">Insérer une image  <FontAwesomeIcon icon={faImage}/>
             <input
               type="file"
               src=""
@@ -61,7 +61,6 @@ const CreatePost = () => {
           </label>
 
         </div>
-        <br />
         <StyledInput className="form-btn" type="submit" value="publier" />
         <div className="statusMessage"></div>
       </form>

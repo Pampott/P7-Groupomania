@@ -1,11 +1,176 @@
 #postsContainer {
     @include FlexColumnCenter;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .card-container{
     @include FlexColumnCenter;
+    align-items: stretch;
     margin: 10px;
-    padding: 10px;
-    border: 2px solid lighten($primary, 30);
+    padding: 5px 0;
+    box-shadow: 0px 0px 20px 3px lighten($tertiary, 50);
     border-radius: 10px;
+    position: relative;
+    width: 340px;
+    //height: 350px;
+}
+
+.date {
+    font-size: 10px;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    display: none;
+    
+}
+
+.poster-info {
+    display: flex;
+    justify-content: flex-start;
+}
+.post-info {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+    width: 100%;
+    height: 350px;
+    padding: 10px;
+    h2 {
+        font-size: 20px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+}
+
+.card-image {
+    width: 100%;
+    height: 85%;
+    margin: 0;
+    padding: 0;
+    border-radius: 20px;
+}
+
+.admin {
+    display: flex;
+    flex-direction: row-reverse;
+    position: absolute;
+    color: lighten($primary, 10);
+    font-size: 20px;
+    top: 7px;
+    right: 20px;
+    .actions {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        margin: 0 4px 0 0 ;
+        border-radius: 10px;
+        background: lighten($primary, 47);
+        .actions-btn {
+            list-style: none;
+            color: $tertiary;
+            font-size: 14px;
+            border-radius:  0 0 10px;
+            padding: 10px;
+            transition: all 0.3s;
+            &:hover {
+                color: $primary;
+                transform: scale(1.1);
+                transition: all 0.4s;
+                cursor: pointer;
+
+            }
+
+        }
+    }
+}
+#modifyingPost {
+    margin-top: 10px;
+    @include FlexColumnCenter;
+    border-radius: 10px;
+    padding: 10px 2px;
+    background: $secondary;
+    position: absolute;
+    top: 100%;
+    left: -50%;
+    input {
+        outline: none;
+        border: 0;
+        margin-bottom: 10px;
+        height: 30px;
+    }
+    input[type= "file"] {
+        display: none;
+    }
+    label {
+        color: $tertiary;
+        font-size: 16px;
+        margin: 5px;
+    } 
+    .modifiedImage {
+        background: $tertiary;
+        padding: 5px 9px;
+        border-radius: 10px;
+        color: #fff;
+        &:hover {
+            background: $primary;
+            cursor: pointer;
+        }
+    }
+    button {
+        color: darken($tertiary, 10);
+        margin: 5px;
+        padding: 5px 8px;
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: 600;
+        border-radius: 5px;
+        border: 0;
+        background: lighten($tertiary, 40);
+        transition: all 0.3s;
+        &:hover {
+            background: $primary;
+            color: #fff;
+            cursor: pointer;
+        }
+    }
+
+}
+
+//Create Post
+form {
+    margin-top: 10px;
+    @include FlexColumnCenter;
+    border-radius: 10px;
+    background: $secondary;
+    margin-bottom: 50px;
+    .inputs-wrapper {
+        @include FlexColumnCenter;
+        height: 100px;
+    }
+    input[type= "file"] {
+        display: none;
+    }
+    #message {
+        height: 30px;
+        width: 250px;
+        border: 0;
+        border-radius: 3px;
+    }
+    label {
+        color: $tertiary;
+        font-size: 16px;
+        margin: 5px;
+    }
+    .label-image {
+        background: $tertiary;
+        padding: 5px 9px;
+        border-radius: 10px;
+        color: #fff;
+        &:hover {
+            background: $primary;
+            cursor: pointer;
+        }
+    }
 }

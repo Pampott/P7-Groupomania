@@ -12,10 +12,5 @@ router.put('/:id', auth, multer, postCtrl.modifyPost);
 
 router.delete('/:id', auth, postCtrl.deletePost);
 
-router.post('/:id/like', auth, postCtrl.likePost);
-
-router.post('/:id/comment', auth, postCtrl.commentPost);
-
-router.delete('/:id/comment', auth, postCtrl.deleteComment);
-
+router.post('/:id/like', postCtrl.likePost);
 module.exports = router;

@@ -33,10 +33,11 @@ export function like(id, user, token) {
   });
 }
 
-export function deletePost(id, token) {
+export function deletePost(id, userId, userRole, token) {
   return new Promise((resolve) => {
     axios
       .delete(`${process.env.REACT_APP_API_URL}api/posts/${id}`, {
+        auth: {userId:  userId, role: userRole},
         headers: {
           Authorization: token,
         },
@@ -54,35 +55,6 @@ export function modifyPost(id, data, token) {
         headers: {
           Authorization: token,
           "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((res) => res.data)
-      .then(resolve)
-      .catch(console.error);
-  });
-}
-
-export function comment(id, data, token) {
-  return new Promise((resolve) => {
-    axios
-      .post(`{process.env.REACT_APP_API_URL}api/posts/${id}/comment`, data, {
-        headers: {
-          Authorization: token,
-        },
-      })
-      .then((res) => res.data)
-      .then(resolve)
-      .catch(console.error);
-  });
-}
-
-
-export function deleteComment(id, token) {
-  return new Promise((resolve) => {
-    axios
-      .delete(`{process.env.REACT_APP_API_URL}api/posts/${id}/comment`, {
-        headers: {
-          Authorization: token,
         },
       })
       .then((res) => res.data)

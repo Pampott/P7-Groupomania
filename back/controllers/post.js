@@ -79,8 +79,8 @@ exports.deletePost = (req, res, next) => {
       .json({ error: new Error("Utilisateur non-autorisé") });
   }
   if (Post.posterId === req.auth.userId || req.auth.role === 2) {
-    Post.findByIdAndRemove(req.params.id, (err) => {
-      if (!err) res.status(200).json({ message: "Post supprimé !" });
+    Post.findByIdAndDelete(req.params.id, (err) => {
+       if (!err) console.log(req.auth);//res.status(200).json({ message: "Post supprimé !" });
       else console.log(err);
     });
   }
@@ -121,43 +121,5 @@ exports.likePost = async (req, res) => {
     res.status(200).json(updatedPost);
   } catch (error) {
     res.status(404).json({ message: error.message });
-  }
-};
-
-exports.commentPost = (req, res, next) => {
-  if (!ObjectId.isValid(req.params.id)) {
-    return res.status(400).json("ID inconnu: " + req.params.id);
-  }
-
-  Post.findByIdAndUpdate(
-    req.params.id,
-    {
-      $push: {
-        comments: {
-          commenterName: req.body.commenterName,
-          text: req.body.text,
-          date: new Date().getTime(),
-        },
-      },
-    },
-    { new: true },
-    (err, docs) => {
-      if (!err) return res.status(201).json(docs);
-      else return res.status(400).json(err);
-    }
-  );
-};
-
-exports.deleteComment = (req, res, next) => {
-  if (!ObjectId.isValid(req.params.id)) {
-    return res.status(400).json("ID inconnu: " + req.params.id);
-  }
-  if (
-    ObjectId.isValid(req.params.id) ||
-    user.role === user.roles.administrator
-  ) {
-    Post.findByIdAndDelete(req.params.id, {
-      $,
-    });
   }
 };

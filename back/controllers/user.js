@@ -32,7 +32,7 @@ exports.login = (req, res, next) => {
           if (!valid) {
             return res.status(401).json({ message: "Identifiants incorrects" });
           } else {
-            const token = jwt.sign({ userId: user._id }, process.env.TOKEN, {
+            const token = jwt.sign({ userId: user._id, role: user.role }, process.env.TOKEN, {
               expiresIn: "24h",
             });
             res.setHeader("Authorization", "Bearer" + token);
@@ -40,6 +40,7 @@ exports.login = (req, res, next) => {
               firstName: user.firstName,
               lastName: user.lastName,
               userId: user._id,
+              role: user.role,
               token: token,
             });
           }

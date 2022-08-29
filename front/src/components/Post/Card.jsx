@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart, faMessage, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import { Loader } from "../../styles/Atoms";
 import '../../pages/Posts/index.css'
-import Comments from './Comments';
 import { colors } from '../../styles/colors';
 import ModifyPost from './ModifyPost';
 import Like from './Like';
@@ -14,18 +13,13 @@ const Card = ({ post }) => {
     const user = localStorage.getItem("user");
     let userObject = JSON.parse(user);
     const [isLoading, setIsLoading] = useState(true);
-    const [showComments, setShowComments] = useState(false);
     const [checkModify, setCheckModify] = useState(false);
     const [showAdmin, setShowAdmin] = useState(false)
     const [isLiked, setIsLiked] = useState(false);
+    const [deleted, setDeleted] = useState(false)
     useEffect(() => {
         post && setIsLoading(false)
     }, [post]);
-    function commentToggle() {
-        let toggle = document.querySelector(".comments-toggle");
-        toggle.classList.toggle("active");
-        toggle.classList.contains("active") ? setShowComments(true) : setShowComments(false)
-    }
 
     function modify() {
         userObject.id === post.posterId ? setCheckModify(true) : setCheckModify(false)
@@ -44,7 +38,10 @@ const Card = ({ post }) => {
     }
 
     function deletePost() {
-        
+        let deleteBtn = document.querySelector(".deleteBtn");
+        deleteBtn.addEventListener("click", () => {
+            setDeleted(!deleted);
+        })
     }
 
 
@@ -53,13 +50,11 @@ const Card = ({ post }) => {
             {isLoading ? (
                 <Loader />) : (
                 <>
-                    <p>{post.createdAt}</p>
-                    <div className='poster-info'>
-                        <p>{post.firstName} {post.lastName}</p>
-                    </div>
+                    <p className='date'>{post.createdAt}</p>
+                    <p className='poster-info'>{post.firstName} {post.lastName}</p>
                     <div className="post-info">
                         {post.message ? (<h2>{post.message}</h2>) : null}
-                        {post.imageUrl ? (<img src={post.imageUrl} alt={post.imageUrl} />) : null}
+                        {post.imageUrl ? (<img className="card-image" src={post.imageUrl} alt={post.imageUrl} />) : null}
                     </div>
                     <div className="actions">
                         <div className="likes">
@@ -74,27 +69,18 @@ const Card = ({ post }) => {
                                 onClick={likeToggle} />
                             { isLiked ? <Like post={post} /> : post.likes}
                         </div>
-                        <div className="comments">
-                            <FontAwesomeIcon icon={faMessage} focusable={true} className="comments-toggle" onClick={commentToggle} />
-                            {showComments ? <Comments post={post} /> : null}
-                        </div>
-                        <div className="editComment">
-                            <textarea name="edit" id="commentEdit" cols="30" rows="3" placeholder='Ecrire...' />
-                            <input htmlFor="edit" type="submit" value="envoyer" />
-                        </div>
                         <div className="admin">
                             <FontAwesomeIcon icon={faEllipsisVertical} focusable={true} className="adminToggle" onClick={adminToggle} />
-                            {showAdmin ? (<ul>
-                                <li onClick={(e) => { e.preventDefault(); modify() }}>Modifier la publication
+                            {showAdmin ? (<ul className="actions">
+                                <li className="modifyBtn actions-btn"onClick={(e) => { e.preventDefault(); modify() }}>Modifier la publication
                                 </li>
-                                <li onClick={(e) => { e.preventDefault(); deletePost()}}>Supprimer la publication</li>
+                                <li className="deleteBtn actions-btn" onClick={(e) => { e.preventDefault(); deletePost()}}>{deleted ? <DeletePost post={post} /> : "Supprimer la publication"}</li>
                             </ul>
                             ) : (null)}
                             {checkModify
-                                ? <ModifyPost post={post} />
-                                : (<div>Vous n'avez pas l'autorisation de modifier ce post.</div>)
+                                ? <ModifyPost post={post}/>
+                                : (null)
                             }
-                            <DeletePost />
                         </div>
 
 

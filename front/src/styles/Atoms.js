@@ -31,15 +31,18 @@ export const Loader = styled.div`
   }
 `
 export const StyledInput = styled.input`
-  padding: 8px 10px;
+  padding: 5px 10px;
+  margin: 10px 0;
+  border: 0;
+  background: ${colors.tertiary};
+  color: #fff;
+  text-transform: capitalize;
+  font-weight: 600;
   letter-spacing: 1px;
-  background: #fff;
-  color: ${colors.tertiary};
-  border: 1px solid ${colors.tertiary};
-  border-radius: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  font-size: 12px;
+  border-radius: 6px;
+  &:hover {
+    background: ${colors.primary}
+  }  
 `;
 
 export const StyledHeader = styled.header`
