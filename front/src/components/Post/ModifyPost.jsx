@@ -13,7 +13,7 @@ const ModifyPost = (post) => {
         newFormData.append("imageUrl", file);
         newFormData.set("message", message);
         modifyPost(post.post._id, newFormData, token).then((res) => console.log(res)).catch(console.error);
-        window.location.reload();
+        //window.location.reload();
 
     }
     return (

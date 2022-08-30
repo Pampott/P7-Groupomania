@@ -21,9 +21,7 @@ const Login = () => {
           localStorage.setItem("token", res.data.token);
           localStorage.setItem("user", JSON.stringify({ 
             firstName: res.data.firstName, 
-            lastName: res.data.lastName, 
-            id: res.data.userId, 
-            role: res.data.role }))
+            lastName: res.data.lastName, }))
             
           window.location = "/posts";
         } else {

@@ -33,13 +33,12 @@ export function like(id, user, token) {
   });
 }
 
-export function deletePost(id, userId, userRole, token) {
+export function deletePost(id, token) {
   return new Promise((resolve) => {
     axios
       .delete(`${process.env.REACT_APP_API_URL}api/posts/${id}`, {
-        auth: {userId:  userId, role: userRole},
         headers: {
-          Authorization: token,
+          Authorization: "Bearer " +  token,
         },
       })
       .then((res) => res.status)
