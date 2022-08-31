@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Post = require("../models/post");
 const User = require("../models/user");
-const {userId} = require("../middlewares/auth");
+const jwt = require("jsonwebtoken");
 
 exports.getPosts = (req, res, next) => {
   Post.find((err, posts) => {
@@ -13,15 +13,6 @@ exports.getPosts = (req, res, next) => {
   });
 };
 
-exports.getPost = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const post = await PostModel.findById(id);
-    res.status(200).json(post);
-  } catch (error) {
-    res.status(404).json({ message: "Une erreur est survenue" });
-  }
-};
 exports.createPost = (req, res, next) => {
   const postObject = req.body;
   const post = new Post({
@@ -40,62 +31,66 @@ exports.createPost = (req, res, next) => {
     .catch((err) => console.log(err));
 };
 
-exports.modifyPost = (req, res) => {
+exports.modifyPost = async (req, res) => {
+  //Récupération du userId via le token :
+  const token = req.headers.authorization.split(" ")[1];
+  const decodedToken = jwt.decode(token);
+  const userId = decodedToken.userId;
   const { id } = req.params;
+
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ message: "Ce post n'existe pas." });
   }
- 
-  Post.findById(id).then((post) => {
-    const message = req.body.message;
-    const userId = req.body.userId
-    let image = req.file
-      ? `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
-      : post.imageUrl;
-    let updatedPost = {
-      posterId: post.posterId,
-      message,
-      image,
-      _id: id,
-    };
-    User.findById(userId).then((currentUser) => {
-      if (post.posterId !== currentUser.id) {
-        return res.status(401).json({ message: "Utilisateur non-autorisé" });
-      }
-      if (post.posterId === currentUser.id || currentUser.role === 2) {
-        Post.updateOne(post, updatedPost, { new: true })
-          .then((res) => console.log(res))
-          .catch((err) => console.log(err));
-        //.catch((error) => {return res.status(500).json({ error })});
-      }
-    });
-    })
-    
+
+  await Post.findById(id)
+  .then((post) => {
+      User.findById(userId)
+        .then((currentUser) => {
+          if (currentUser === post.posterId || currentUser.role === 2) {
+            const newPost = req.file 
+            ? {
+              ...req.body,
+              id,
+              imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+            }
+            :
+            {
+              ...req.body, id
+            }
+            post.updateOne(newPost)
+              .then(res.status(200).json({message: "Post modifié"}))
+          }
+          else {
+            res.status(401).json({message : "Non autorisé."})
+          }
+      })
+  })
+  .catch(err => console.log(err))
 };
 
-exports.deletePost = (req, res, next) => {
+exports.deletePost = async (req, res, next) => {
+  //Récupération du userId via le token :
+  const token = req.headers.authorization.split(" ")[1];
+  const decodedToken = jwt.decode(token);
+  const userId = decodedToken.userId;
   const { id } = req.params;
-  const userId = req.body.userId
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ message: "Ce post n'existe pas." });
   }
- 
-  Post.findById(id).then((post) =>{
-    User.findById(userId).then((currentUser) => {
-      console.log(currentUser);
-      if (post.posterId !== currentUser.id) {
-        return res
-          .status(401)
-          .json({error: new Error("Non autorisé")});
-      }
+
+  await Post.findById(id)
+    .then((post) => {
+    User.findById(userId)
+      .then((currentUser) => {
       if (post.posterId === currentUser.id || currentUser.role === 2) {
-        Post.findByIdAndDelete(id, (err) => {
-          if (!err) res.status(200).json({ message: "Post supprimé !" });
-          else console.log(err);
-        });
+        post.delete()
+          .then(res.status(200).json({message : "Post supprimé !"}))
+          .catch(err => res.status(500).json({err}))
+      } else {
+        res.status(401).json({message : "Non autorisé."})
       }
-    })
-  })
+    });
+  });
 };
 
 exports.likePost = async (req, res) => {

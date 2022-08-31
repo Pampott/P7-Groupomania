@@ -1,16 +1,17 @@
-import { Router } from 'express';
-const router = Router();
-import { getPosts, createPost, modifyPost, deletePost, likePost } from '../controllers/post';
-import auth from '../middlewares/auth';
-import multer from '../middlewares/multer-config';
+const express = require('express');
+const router = express.Router();
+const postController = require('../controllers/post')
+const auth = require('../middlewares/auth');
+const multer = require('../middlewares/multer-config');
 
-router.get('/', getPosts);
+router.get('/', postController.getPosts);
 
-router.post('/', auth, multer, createPost);
+router.post('/', auth, multer, postController.createPost);
 
-router.put('/:id', auth, multer, modifyPost);
+router.put('/:id', auth, multer, postController.modifyPost);
 
-router.delete('/:id', auth, deletePost);
+router.delete('/:id', auth, postController.deletePost);
 
-router.post('/:id/like', likePost);
-export default router;
+router.post('/:id/like', postController.likePost);
+
+module.exports = router;
