@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
-const { userId } = require("../middlewares/auth");
 const Post = require("../models/post");
 const User = require("../models/user");
-const ObjectId = mongoose.Types.ObjectId;
+const {userId} = require("../middlewares/auth");
 
 exports.getPosts = (req, res, next) => {
   Post.find((err, posts) => {
@@ -46,9 +45,10 @@ exports.modifyPost = (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ message: "Ce post n'existe pas." });
   }
+ 
   Post.findById(id).then((post) => {
     const message = req.body.message;
-    const userId = req.body.userId;
+    const userId = req.body.userId
     let image = req.file
       ? `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
       : post.imageUrl;
@@ -58,31 +58,44 @@ exports.modifyPost = (req, res) => {
       image,
       _id: id,
     };
-
-    if (post.posterId !== userId) {
-      return res.status(401).json({ message: "Utilisateur non-autorisé" });
-    }
-    if (post.posterId === userId || role === 2) {
-      Post.updateOne(post, updatedPost, { new: true })
-        .then(console.log(updatedPost))
-        .catch((err) => console.log(err));
-      //.catch((error) => {return res.status(500).json({ error })});
-    }
-  });
+    User.findById(userId).then((currentUser) => {
+      if (post.posterId !== currentUser.id) {
+        return res.status(401).json({ message: "Utilisateur non-autorisé" });
+      }
+      if (post.posterId === currentUser.id || currentUser.role === 2) {
+        Post.updateOne(post, updatedPost, { new: true })
+          .then((res) => console.log(res))
+          .catch((err) => console.log(err));
+        //.catch((error) => {return res.status(500).json({ error })});
+      }
+    });
+    })
+    
 };
 
 exports.deletePost = (req, res, next) => {
-  if (Post.posterId !== req.auth.userId) {
-    return res
-      .status(401)
-      .json({ error: new Error("Utilisateur non-autorisé") });
+  const { id } = req.params;
+  const userId = req.body.userId
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ message: "Ce post n'existe pas." });
   }
-  if (Post.posterId === req.auth.userId || req.auth.role === 2) {
-    Post.findByIdAndDelete(req.params.id, (err) => {
-      if (!err) res.status(200).json({ message: "Post supprimé !" });
-      else console.log(err);
-    });
-  }
+ 
+  Post.findById(id).then((post) =>{
+    User.findById(userId).then((currentUser) => {
+      console.log(currentUser);
+      if (post.posterId !== currentUser.id) {
+        return res
+          .status(401)
+          .json({error: new Error("Non autorisé")});
+      }
+      if (post.posterId === currentUser.id || currentUser.role === 2) {
+        Post.findByIdAndDelete(id, (err) => {
+          if (!err) res.status(200).json({ message: "Post supprimé !" });
+          else console.log(err);
+        });
+      }
+    })
+  })
 };
 
 exports.likePost = async (req, res) => {

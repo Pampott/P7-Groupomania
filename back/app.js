@@ -1,31 +1,24 @@
-const express = require('express');
+import express, { json } from 'express';
 require('dotenv').config({ path: 'config/.env' });
-const cors = require('cors');
-const helmet = require('helmet');
-const path = require('path');
+import cors from 'cors';
+import helmet from 'helmet';
+import { join } from 'path';
 
-require('./config/db');
+import './config/db';
 
 const app = express();
-app.use(express.json());
+app.use(json());
 app.use(cors());
 app.use(helmet({
     crossOriginResourcePolicy: { policy: "same-site"}
 }))
 
-app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use('/images', (join(__dirname, 'images')));
 
-const userRoutes = require('./routes/user');
+import userRoutes from './routes/user';
 app.use('/api/auth', userRoutes)
 
-const postRoutes = require('./routes/post');
+import postRoutes from './routes/post';
 app.use('/api/posts', postRoutes);
 
-
-
-
-
-
-
-
-module.exports = app;
+export default app;
