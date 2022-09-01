@@ -28,7 +28,7 @@ exports.createPost = (req, res, next) => {
   post
     .save()
     .then(() => res.status(201).json(post))
-    .catch((err) => console.log(err));
+    .catch((err) => res.status(500).json({err}));
 };
 
 exports.modifyPost = async (req, res) => {
@@ -36,7 +36,7 @@ exports.modifyPost = async (req, res) => {
   const token = req.headers.authorization.split(" ")[1];
   const decodedToken = jwt.decode(token);
   const userId = decodedToken.userId;
-  const { id } = req.params;
+  const id = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ message: "Ce post n'existe pas." });
@@ -46,7 +46,7 @@ exports.modifyPost = async (req, res) => {
   .then((post) => {
       User.findById(userId)
         .then((currentUser) => {
-          if (currentUser === post.posterId || currentUser.role === 2) {
+          if (currentUser.id === post.posterId || currentUser.role === 2) {
             const newPost = req.file 
             ? {
               ...req.body,
@@ -65,7 +65,7 @@ exports.modifyPost = async (req, res) => {
           }
       })
   })
-  .catch(err => console.log(err))
+  .catch(err => res.status(500).json({error: err}))
 };
 
 exports.deletePost = async (req, res, next) => {
@@ -73,7 +73,7 @@ exports.deletePost = async (req, res, next) => {
   const token = req.headers.authorization.split(" ")[1];
   const decodedToken = jwt.decode(token);
   const userId = decodedToken.userId;
-  const { id } = req.params;
+  const id = req.params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ message: "Ce post n'existe pas." });
   }
@@ -94,37 +94,28 @@ exports.deletePost = async (req, res, next) => {
 };
 
 exports.likePost = async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    if (!req.userId) {
-      return res.json({ message: "Utilisateur non identifié" });
-    }
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res
-        .status(404)
-        .json({ message: `Aucun poste existant avec cette id: ${id}` });
-    }
-
-    const post = await Post.findById(id);
-
-    const index = post.usersLiked.findIndex((id) => id === String(req.userId));
-
-    if (index === -1) {
-      post.usersLiked.push(req.userId);
-      post.likes++;
-    } else {
-      post.usersLiked.splice(req.userId);
-      post.likes--;
-    }
-
-    const updatedPost = await Post.findByIdAndUpdate(id, post, {
-      new: true,
-    });
-
-    res.status(200).json(updatedPost);
-  } catch (error) {
-    res.status(404).json({ message: error.message });
+  const id = req.params;
+  //Récupération du userId via le token :
+  const token = req.headers.authorization.split(" ")[1];
+  const decodedToken = jwt.decode(token);
+  const userId = decodedToken.userId;
+  
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res
+      .status(404)
+      .json({ message: "Ce post n'existe pas."});
   }
+
+  await Post.findById(id)
+    .then((post) => {
+        if (req.body.likes === 1) {
+          post.usersLiked.push(userId)
+          post.likes++;
+          res.status(200).json({message : "Publication likée"})
+        } else {
+          post.usersLiked.splice(userId, 1);
+          post.likes
+          res.status(202).json({message : "Retrait du like"})
+        }
+    })
 };
