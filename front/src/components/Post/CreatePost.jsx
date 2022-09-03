@@ -38,7 +38,7 @@ const CreatePost = () => {
   }
 
   return (
-    <>
+    <div style={{transition: "all .4s"}}>
       <form
         action=""
         id="form"
@@ -63,7 +63,7 @@ const CreatePost = () => {
         <StyledInput className="form-btn" type="submit" value="publier" />
         <div className="statusMessage"></div>
       </form>
-    </>
+    </div>
   );
 };
 

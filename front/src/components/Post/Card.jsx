@@ -47,11 +47,11 @@ const Card = ({ post }) => {
                     <div className="actions">
                         <Like post={post} />
                         <div className="admin">
-                            <FontAwesomeIcon icon={faPenToSquare} className="modifyBtn" onClick={modifyToggle} />
+                            <FontAwesomeIcon icon={faPenToSquare} className="modifyBtn btn-action" onClick={modifyToggle} />
                             {
                                 showModify ? <ModifyPost post={post} /> : null
                             }
-                            <FontAwesomeIcon icon={faTrash} className="deleteToggle" onClick={deleteToggle} />
+                            <FontAwesomeIcon icon={faTrash} className="deleteToggle btn-action" onClick={deleteToggle} />
                             {
                                 deleted ? <DeletePost post={post} /> : null
                             }

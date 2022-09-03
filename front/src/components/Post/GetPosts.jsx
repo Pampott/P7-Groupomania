@@ -15,7 +15,7 @@ const GetPosts = () => {
 
   return (
     <div id="postsContainer">
-      {posts.map((post) => {
+      {posts.reverse().map((post) => {
         return <Card post={post} key={post._id} />
       })}
     </div>
