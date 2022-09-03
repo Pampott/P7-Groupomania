@@ -14,17 +14,21 @@ exports.getPosts = (req, res, next) => {
 };
 
 exports.createPost = (req, res, next) => {
-  const postObject = req.body;
+  const token = req.headers.authorization.split(" ")[1];
+  const decodedToken = jwt.decode(token);
+  const userId = decodedToken.userId;
   const post = new Post({
-    ...postObject,
+    posterId: userId,
     imageUrl: req.file
       ? `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
       : "",
     likes: 0,
+    message: req.body.message,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
     usersLiked: [],
     createdAt: new Date().toISOString(),
   });
-
   post
     .save()
     .then(() => res.status(201).json(post))
@@ -36,7 +40,7 @@ exports.modifyPost = async (req, res) => {
   const token = req.headers.authorization.split(" ")[1];
   const decodedToken = jwt.decode(token);
   const userId = decodedToken.userId;
-  const id = req.params;
+  const {id} = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ message: "Ce post n'existe pas." });
@@ -47,17 +51,19 @@ exports.modifyPost = async (req, res) => {
       User.findById(userId)
         .then((currentUser) => {
           if (currentUser.id === post.posterId || currentUser.role === 2) {
-            const newPost = req.file 
-            ? {
-              ...req.body,
-              id,
-              imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-            }
-            :
-            {
-              ...req.body, id
-            }
-            post.updateOne(newPost)
+            const message = req.body.message;
+            let image = req.file
+            ? `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
+            : post.imageUrl;
+            const updatedPost = {
+              posterId: post.posterId,
+              message,
+              image,
+              usersLiked: post.userLiked,
+              likes: post.likes,
+              _id: id
+          }
+            post.updateOne(updatedPost)
               .then(res.status(200).json({message: "Post modifié"}))
           }
           else {
@@ -73,7 +79,7 @@ exports.deletePost = async (req, res, next) => {
   const token = req.headers.authorization.split(" ")[1];
   const decodedToken = jwt.decode(token);
   const userId = decodedToken.userId;
-  const id = req.params;
+  const {id} = req.params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ message: "Ce post n'existe pas." });
   }
@@ -94,12 +100,11 @@ exports.deletePost = async (req, res, next) => {
 };
 
 exports.likePost = async (req, res) => {
-  const id = req.params;
+  const {id} = req.params;
   //Récupération du userId via le token :
   const token = req.headers.authorization.split(" ")[1];
   const decodedToken = jwt.decode(token);
   const userId = decodedToken.userId;
-  
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res
       .status(404)
@@ -108,14 +113,22 @@ exports.likePost = async (req, res) => {
 
   await Post.findById(id)
     .then((post) => {
-        if (req.body.likes === 1) {
-          post.usersLiked.push(userId)
-          post.likes++;
-          res.status(200).json({message : "Publication likée"})
-        } else {
-          post.usersLiked.splice(userId, 1);
-          post.likes
-          res.status(202).json({message : "Retrait du like"})
+        if (req.body.like === 1) {
+          if(post.usersLiked.find(user => user = userId)) {
+            post.usersLiked.splice(userId);
+            post.likes--
+            res.status(202).json({message : "Retrait du like"})
+          } else {
+            post.usersLiked.push(userId)
+            post.likes++;
+            res.status(200).json({message : "Publication likée"})
+          }
+          
         }
+        
+        Post.updateOne({_id : id}, {$set : { likes: post.likes, usersLiked: post.usersLiked}}, {upsert: true, strict: false})
+        .then((res) => {return res})
     })
+
+    
 };

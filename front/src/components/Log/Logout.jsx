@@ -8,12 +8,12 @@ const Logout = () => {
         
         axios.get(`${process.env.REACT_APP_API_URL}api/auth/logout`, {
             headers : {
-                Authorization: localStorage.getItem("token")
+                Authorization: "Bearer " + localStorage.getItem("token")
             }
         })
         .then(() => {
             localStorage.clear();
-            window.location = '/auth'})
+            window.location = '/'})
         .catch(err => alert('Une erreur est survenue : ' + err))
     }
     return (

@@ -48,7 +48,3 @@ exports.login = (req, res, next) => {
     })
     .catch((error) => res.status(500).json({ error }));
 };
-
-exports.logout = (req, res, next) => {
-  res.status(200).json("OUT").redirect("auth")
-};

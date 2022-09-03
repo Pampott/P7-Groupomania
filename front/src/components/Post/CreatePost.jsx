@@ -15,15 +15,14 @@ const CreatePost = () => {
     e.preventDefault();
     const token = localStorage.getItem("token");
     const formData = new FormData(document.getElementById("form"));
-    formData.set("posterId", userObject.id);
     formData.set("firstName", userObject.firstName);
     formData.set("lastName", userObject.lastName);
     //formData.set("timestamp", new Date.now())
-    formData.append("image", file);
+    formData.append("imageUrl", file);
     axios
       .post(`${process.env.REACT_APP_API_URL}api/posts`, formData, {
         headers: {
-          Authorization: token,
+          Authorization: "Bearer " + token,
           "Content-Type": "multipart/form-data",
         },
       })

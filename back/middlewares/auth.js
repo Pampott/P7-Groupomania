@@ -20,6 +20,6 @@ module.exports = (req, res, next) => {
       });
     }
   } catch {
-    res.status(401).json({message: "Erreur"});
+    res.status(401).json({message: "Erreur"})
   }
 };

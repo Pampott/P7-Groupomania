@@ -53,5 +53,13 @@ box-shadow: 1px -11px 11px 6px ${colors.primary};
 height: 60px;
 border-bottom-left-radius: 20px;
 border-bottom-right-radius: 20px;
-margin-bottom: 2em;
+margin-bottom: 1em;
 ` 
+
+export const StyledMessage = styled.p`
+padding: 5px 10px;
+border: 1px solid ${colors.primary};
+background: ${colors.primary};
+border-radius: 10px;
+color: #fff;
+`

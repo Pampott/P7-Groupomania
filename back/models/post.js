@@ -8,15 +8,6 @@ const postSchema = mongoose.Schema({
   imageUrl: { type: String },
   likes: { type: Number, default: 0 },
   usersLiked: { type: [String], default: [] },
-  comments: {
-    type: [
-      {
-        commenterName: { type: String },
-        text: { type: String },
-        date: { type:  Date, default: new Date() },
-      },
-    ],
-  },
   createdAt: { type: Date, default: new Date() },
 });
 

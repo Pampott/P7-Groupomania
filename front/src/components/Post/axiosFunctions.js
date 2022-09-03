@@ -14,20 +14,17 @@ export function fetchPosts(token) {
   });
 }
 
-export function like(id, user, token) {
+export function like(id, like, token) {
   return new Promise((resolve) => {
     axios
-      .post(
-        `${process.env.REACT_APP_API_URL}api/posts/${id}/like`,
-        { userId: user },
+      .patch(
+        `${process.env.REACT_APP_API_URL}api/posts/${id}/like`, like, 
         {
           headers: {
-            Authorization: "Bearer " + token,
-          },
-          auth: { userId: localStorage.getItem("userId") },
-        }
-      )
-      .then((res) => res.status)
+            Authorization : "Bearer " + token
+          }
+        })
+      .then((res) => {return res})
       .then(resolve)
       .catch(console.error);
   });
@@ -52,11 +49,11 @@ export function modifyPost(id, data, token) {
     axios
       .putForm(`${process.env.REACT_APP_API_URL}api/posts/${id}`, data, {
         headers: {
-          Authorization: token,
+          Authorization: "Bearer " + token,
           "Content-Type": "multipart/form-data",
         },
       })
-      .then((res) => res.data)
+      .then((res) => {return res})
       .then(resolve)
       .catch(console.error);
   });

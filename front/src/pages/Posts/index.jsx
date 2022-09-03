@@ -24,16 +24,18 @@ const PostsPage = () => {
         <Logout />
       </StyledHeader>
       <main>
-        <StyledInput
-          style={{letterSpacing : "0"}}
-          id="create-post-btn"
-          type="button"
-          value={toggled ? "Fermer" : "Créer un post"}
-          onClick={(e) => {
-            toggle(e);
-          }}
-        />
-        {toggled ? <CreatePost className="createPost" /> : null}
+        <div className="btn-wrapper" style={{display: "flex", flexDirection: "column",justifyContent: "center", alignItems: "center"}}>
+          <StyledInput
+            style={{ letterSpacing: "0" }}
+            id="create-post-btn"
+            type="button"
+            value={toggled ? "Fermer" : "Créer un post"}
+            onClick={(e) => {
+              toggle(e);
+            }}
+          />
+          {toggled ? <CreatePost className="createPost" /> : null}
+        </div>
         <GetPosts />
       </main>
     </div>

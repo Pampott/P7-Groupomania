@@ -4,7 +4,9 @@ const userCtrl = require('../controllers/user');
 
 router.post('/signup', userCtrl.signup);
 router.post('/login', userCtrl.login);
-router.get('/logout', userCtrl.logout);
+router.get('/logout', (req, res, next) => {
+    res.redirect(200, '/');
+});
 
 
 
