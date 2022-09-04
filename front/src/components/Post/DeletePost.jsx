@@ -6,21 +6,25 @@ import { deletePost } from './axiosFunctions';
 const DeletePost = (post) => {
     const token = localStorage.getItem("token");
     const [isLoading, setIsLoading] = useState(true);
-    const [deleted, setDeleted] = useState(false);
+    const [ok, setOk] = useState("")
     useEffect(() => {
         deletePost(post.post._id, token)
-            .then(setDeleted(true))
-            .catch(setDeleted(false))
+            .then((res) => res === 200
+                ?
+                (setOk("Publication supprimée !"), setTimeout(() => {
+                    document.location.reload()
+                }, 2000))
+                : null)
+            .catch(setOk("Vous ne pouvez pas supprimer ce post."))
             .finally(setIsLoading(false))
     }, [post.post._id, token])
     return (
         <div >
             {
-                isLoading 
-                ? <Loader /> 
-                :  deleted 
-                    ? (<StyledMessage>Publication supprimée !</StyledMessage> && window.location.reload())
-                    : <StyledMessage>Vous ne pouvez pas supprimer cette publication</StyledMessage>
+                isLoading
+                    ? <Loader />
+                    : <StyledMessage className='statusMessage' style={{fontSize: "15px"}}>{ok}</StyledMessage>
+
             }
         </div>
     );

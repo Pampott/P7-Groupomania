@@ -23,7 +23,7 @@ const Card = ({ post }) => {
     }
 
     function deleteToggle() {
-        let toggleBtn = document.querySelector(".deleteBtn")
+        let toggleBtn = document.querySelector(".deleteToggle")
         toggleBtn.classList.toggle("delete")
         toggleBtn.classList.contains("delete")
         ? setDeleted(true)
