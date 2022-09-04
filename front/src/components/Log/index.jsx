@@ -24,14 +24,14 @@ const Log = () => {
           <li
             onClick={handleModals}
             id="register"
-            className={(signUpModal ? "active-btn auth-btn" : "auth-btn")}
+            className={(signUpModal ? "auth-btn active-btn" : "auth-btn")}
           >
             S'inscrire
           </li>
           <li
             onClick={handleModals}
             id="login"
-            className={(loginModal ? "active-btn auth-btn" : "auth-btn")}
+            className={(loginModal ? "auth-btn active-btn" : "auth-btn")}
           >
             Se connecter
           </li>

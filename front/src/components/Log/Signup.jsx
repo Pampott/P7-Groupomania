@@ -33,24 +33,24 @@ const Signup = () => {
   return (
     <form action="" onSubmit={handleSignup} id="signup-form" className="form">
       <div className="input-wrapper">
-        <label htmlFor="firstName">Prénom</label>
-        <input
+      <input
           type="text"
           name="firstName"
           id="firstName"
           onChange={(e) => setFName(e.target.value)}
           value={fName}
         />
+        <label htmlFor="firstName">Prénom</label>
       </div>
       <div className="input-wrapper">
-        <label htmlFor="lastName">Nom</label>
-        <input
+      <input
           type="text"
           name="lastName"
           id="lastName"
           onChange={(e) => setLName(e.target.value)}
           value={lName}
         />
+        <label htmlFor="lastName">Nom</label>
       </div>
       <div className="input-wrapper">
         <input

@@ -1,118 +1,107 @@
-$primary:  #FD2D01;
-$secondary:  #FFD7D7;
-$tertiary: #4E5166;
+$primary: #fd2d01;
+$secondary: #ffd7d7;
+$tertiary: #4e5166;
 
-
-@media screen and(min-width: 300px) {
-    .auth-wrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        background: lighten($tertiary, 30);
-    }
-    .log-container {
-        background: #fff;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 90%;
-        max-width: 400px;
-        border-radius: 10px;
-        box-shadow: 0px 3px 30px 3px lighten($tertiary, 5);
-    } 
-    .connection-form {
-        width: 100%;
-    } 
+.auth-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: lighten($tertiary, 30);
+}
+.log-container {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 10px;
+  box-shadow: 0px 3px 30px 3px lighten($tertiary, 5);
+}
+.connection-form {
+  width: 100%;
 }
 
 ul {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    margin: 20px 0;
-    .auth-btn {
-        list-style: none;
-        padding: 10px 15px;
-        transition: all 0.3s;
-        color: $tertiary;
-        border: $tertiary .1em solid;
-        background: lighten($tertiary, 60);
-        cursor: pointer;
-        border-radius: 3px;
-    }
-}
-
-
-img {
-    width: 200px;
-    height: 50px;
-    object-fit: cover;
-    margin: 14px 20px 0 0;
-}
-.form-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-   
-    .form {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin: 5px 0 0 0;
-        padding: 10px 0 0 0;
-    }
-    .input-wrapper {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        margin: 10px;
-        input, label {
-            transition:  all .3s;
-        }
-        input {
-            min-width: 250px;
-            height: 40px;
-            padding: .5em .5em .5em 1.8em;
-            border: 0;
-            border-radius: 15px;
-            &:focus {
-                padding-left: .7em;
-                outline: none;
-
-            }
-        }
-        label {
-            position: absolute;
-            color: $tertiary;
-            top: -1.4em;
-            left: .5em;
-            line-height: 1;
-        }
-    }
-}
-
-.active-btn {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin: 20px 0;
+  .auth-btn {
+    list-style: none;
+    padding: 10px 15px;
+    transition: all 0.3s;
+    color: $tertiary;
+    border: $tertiary 0.1em solid;
+    background: lighten($tertiary, 60);
+    cursor: pointer;
+    border-radius: 3px;
+  }
+  .active-btn {
     transition: all 0.3s;
     position: relative;
     color: #fff;
-    background: #4E5166;
+    background: #4e5166;
+  }
+}
+
+img {
+  width: 200px;
+  height: 50px;
+  object-fit: cover;
+  margin: 14px 20px 0 0;
+}
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .input-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    input,
+    label {
+      transition: all 0.3s;
+    }
+    input {
+      min-width: 250px;
+      height: 40px;
+      padding: 0.5em 0.5em 0.5em 1.8em;
+      border: 0;
+      border-radius: 15px;
+      &:focus {
+        padding-left: 0.7em;
+        outline: none;
+      }
+    }
+    label {
+      color: $tertiary;
+      line-height: 1;
+    }
+  }
 }
 
 .submit-btn {
-    padding: 12px 15px;
-    letter-spacing: 1px;
-    background: $primary;
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    font-weight: 700;
+  padding: 12px 15px;
+  letter-spacing: 1px;
+  background: $primary;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
 }
 
 #root > div > div {
-    height: 100vh;
-    display: grid;
-    grid-gap: 100px;
+  height: 100vh;
+  display: grid;
+  grid-gap: 100px;
 }

@@ -1,44 +1,44 @@
-@media screen and (min-width: 300px) {
-  .auth-wrapper {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    background: #9b9eb2;
-  }
-  .log-container {
-    background: #fff;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    width: 90%;
-    max-width: 400px;
-    border-radius: 10px;
-    -webkit-box-shadow: 0px 3px 30px 3px #595c74;
-            box-shadow: 0px 3px 30px 3px #595c74;
-  }
-  .connection-form {
-    width: 100%;
-  }
+.auth-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: #9b9eb2;
+}
+
+.log-container {
+  background: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 3px 30px 3px #595c74;
+          box-shadow: 0px 3px 30px 3px #595c74;
+}
+
+.connection-form {
+  width: 100%;
 }
 
 ul {
@@ -56,11 +56,19 @@ ul .auth-btn {
   padding: 10px 15px;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
-  color: #4E5166;
-  border: #4E5166 0.1em solid;
+  color: #4e5166;
+  border: #4e5166 0.1em solid;
   background: #f1f2f5;
   cursor: pointer;
   border-radius: 3px;
+}
+
+ul .active-btn {
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  position: relative;
+  color: #fff;
+  background: #4e5166;
 }
 
 img {
@@ -95,8 +103,6 @@ img {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin: 5px 0 0 0;
-  padding: 10px 0 0 0;
 }
 
 .form-container .input-wrapper {
@@ -105,53 +111,42 @@ img {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: column-reverse;
+          flex-direction: column-reverse;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin: 10px;
 }
 
-.form-container .input-wrapper input, .form-container .input-wrapper label {
-  -webkit-transition: all .3s;
-  transition: all .3s;
+.form-container .input-wrapper input,
+.form-container .input-wrapper label {
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
 }
 
 .form-container .input-wrapper input {
   min-width: 250px;
   height: 40px;
-  padding: .5em .5em .5em 1.8em;
+  padding: 0.5em 0.5em 0.5em 1.8em;
   border: 0;
   border-radius: 15px;
 }
 
 .form-container .input-wrapper input:focus {
-  padding-left: .7em;
+  padding-left: 0.7em;
   outline: none;
 }
 
 .form-container .input-wrapper label {
-  position: absolute;
-  color: #4E5166;
-  top: -1.4em;
-  left: .5em;
+  color: #4e5166;
   line-height: 1;
-}
-
-.active-btn {
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  position: relative;
-  color: #fff;
-  background: #4E5166;
 }
 
 .submit-btn {
   padding: 12px 15px;
   letter-spacing: 1px;
-  background: #FD2D01;
+  background: #fd2d01;
   color: #fff;
   border: none;
   border-radius: 10px;
