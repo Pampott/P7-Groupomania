@@ -7,22 +7,22 @@ const ModifyPost = (post) => {
     const token = localStorage.getItem("token");
     const [file, setFile] = useState(post.post.imageUrl);
     const [message, setMessage] = useState(post.post.message);
+    const [statusMessage, setStatusMessage] = useState("")
     function handleSubmit() {
-        let statusMessage = document.querySelector(".modif-message")
         const newFormData = new FormData(document.getElementById("modifyingPost"));
         newFormData.append("imageUrl", file);
         newFormData.set("message", message);
         modifyPost(post.post._id, newFormData, token)
             .then(
-                statusMessage.innerText = "Modification réussie !",
+                setStatusMessage("Publication modifiée !"),
                 setTimeout(() => {
                     document.location.reload()
                 }, 2000)
             )
             .catch(
-                statusMessage.innerText = "Modification non-autorisée. Echec de la requête",
+                setStatusMessage("Modification échouée : vous n'êtes pas le propriétaire de ce post."),
                 setTimeout(() => {
-                    statusMessage.innerText = "";
+                    setStatusMessage(" ");
                 }, 2000)
             );
     }
@@ -38,7 +38,7 @@ const ModifyPost = (post) => {
                 <button type="submit" id="submit" onClick={(e) => { e.preventDefault(); handleSubmit()}}>
                     envoyer
                 </button>
-                <p className="modif-message" style={{fontSize: "15px", color: colors.primary, borderRadius: "5px", background: "#fff"}}></p>
+                <p className="modif-message" style={{fontSize: "15px", color: colors.primary, borderRadius: "5px", background: "#fff"}}>{statusMessage}</p>
             </form>
 
         </div>
