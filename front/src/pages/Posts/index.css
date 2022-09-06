@@ -123,8 +123,7 @@
   background: #fff2ef;
 }
 
-.admin .actions .actions-btn {
-  list-style: none;
+.admin .actions .btn-action {
   color: #4E5166;
   font-size: 14px;
   border-radius: 0 0 10px;
@@ -133,7 +132,7 @@
   transition: all 0.3s;
 }
 
-.admin .actions .actions-btn:hover {
+.admin .actions .btn-action:hover {
   color: #FD2D01;
   -webkit-transform: scale(1.1);
           transform: scale(1.1);

@@ -42,16 +42,16 @@ const Card = ({ post }) => {
                     <p className='poster-info'>{post.firstName} {post.lastName}</p>
                     <div className="post-info">
                         {post.message ? (<h2>{post.message}</h2>) : null}
-                        {post.imageUrl ? (<img className="card-image" src={post.imageUrl} alt={post.imageUrl} />) : null}
+                        {post.imageUrl ? (<img className="card-image" src={post.imageUrl} alt={post.imageUrl} loading="lazy"/>) : null}
                     </div>
                     <div className="actions">
                         <Like post={post} />
                         <div className="admin">
-                            <FontAwesomeIcon icon={faPenToSquare} className="modifyBtn btn-action" onClick={modifyToggle} />
+                            <FontAwesomeIcon icon={faPenToSquare} focusable='true' className="modifyBtn btn-action" onClick={modifyToggle} />
                             {
                                 showModify ? <ModifyPost post={post} /> : null
                             }
-                            <FontAwesomeIcon icon={faTrash} className="deleteToggle btn-action" onClick={deleteToggle} />
+                            <FontAwesomeIcon icon={faTrash} focusable='true' className="deleteToggle btn-action" onClick={deleteToggle} />
                             {
                                 deleted ? <DeletePost post={post} /> : null
                             }

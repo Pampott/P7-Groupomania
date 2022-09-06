@@ -63,7 +63,7 @@ exports.modifyPost = async (req, res) => {
               usersLiked: post.userLiked,
               likes: post.likes,
               _id: id
-          }
+            }
             post.updateOne(updatedPost)
               .then(res.status(200).json({message: "Post modifié"}))
           }

@@ -67,8 +67,7 @@
         margin: 0 4px 0 0 ;
         border-radius: 10px;
         background: lighten($primary, 47);
-        .actions-btn {
-            list-style: none;
+        .btn-action {
             color: $tertiary;
             font-size: 14px;
             border-radius:  0 0 10px;
