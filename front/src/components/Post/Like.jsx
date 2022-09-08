@@ -10,7 +10,7 @@ const Like = ({ post }) => {
     const token = localStorage.getItem("token");
     const [liked, setLiked] = useState(false)
     return (
-        <div style={{display: "flex", justifyContent: "center", fontSize: "25px"}}>
+        <div style={{display: "flex", flexDirection: "column" ,justifyContent: "center", fontSize: "25px", alignItems: "center"}}>
             <FontAwesomeIcon
                 icon={faHeart}
                 onClick={() => {
@@ -25,6 +25,7 @@ const Like = ({ post }) => {
                         ? { color: colors.primary, transform: "scale(1.2)", transition: "all 0.3s" }
                         : { color: colors.secondary, transform: "scale(1)", transition: "all 0.3s" }
                 } />
+            <p style={{fontSize : "15px"}}>{post.likes}</p>
         </div>
     )
 };
