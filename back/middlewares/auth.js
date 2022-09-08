@@ -11,12 +11,12 @@ module.exports = (req, res, next) => {
       const userId = decodedToken.payload.userId;
       User.findById(userId).then((currentUser) => {
 
-        if (!currentUser.id) {
-          res.status(401).json({ message: "non-authentifié." });
+        if ( currentUser && currentUser.id) {
+          next();
         } else {
-          res.status(200)
+          res.status(401).json({ message: "non-authentifié." });
         }
-        next();
+        
       });
     }
   } catch {

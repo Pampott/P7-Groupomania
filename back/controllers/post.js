@@ -6,12 +6,11 @@ const jwt = require("jsonwebtoken");
 exports.getPosts = (req, res, next) => {
   Post.find((err, posts) => {
     if (!err) {
-      posts.reverse();
       return res.status(200).json(posts);
     } else {
       return res.status(404).json(err);
     }
-  });
+  }).sort({ "createdAt" : -1});
 };
 
 exports.createPost = (req, res, next) => {
